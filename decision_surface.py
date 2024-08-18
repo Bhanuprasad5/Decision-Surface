@@ -93,13 +93,18 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_
 
 # Function to plot decision surfaces
 def plot_decision_surface(X, y, model, title):
+    plt.figure(figsize=(8, 6))  # Explicitly create a figure
     plot_decision_regions(X, y, clf=model, colors='#50C878,#E0115F,#0F52BA')
     plt.title(title)
     plt.xlabel('Feature 1')
     plt.ylabel('Feature 2')
-    plt.legend(loc='best')
-    plt.tight_layout()
-    plt.show()
+
+    # Check if there are any labels for the legend
+    handles, labels = plt.gca().get_legend_handles_labels()
+    if labels:
+        plt.legend(loc='best')
+    
+    st.pyplot(plt)  # Ensure plt is passed to st.pyplot
 
 # Dropdown menu to select the classifier
 classifier_name = st.sidebar.selectbox('Select Classifier', ('KNN', 'Naive Bayes', 'Logistic Regression', 'DecisionTreeClassifier'))
